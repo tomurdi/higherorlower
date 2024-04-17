@@ -1,3 +1,4 @@
+{% extends "base.html" %} {% block header %}
 <nav class="navbar flex w-full justify-between z-40">
     <a class="m-5 navlink" href="{{ url_for('main.index') }}">
         <span class="hidden sm:block">higher or lower game</span>
@@ -15,3 +16,4 @@
     </div>
     {% endif %}
 </nav>
+{% block content %}{% endblock %}{% endblock %}
