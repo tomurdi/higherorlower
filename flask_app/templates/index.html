@@ -1,18 +1,30 @@
-{% extends "base.html" %} {% block content %}
-    <h1 class="text-5xl text-gray-800 font-bold mb-8">Higher or Lower Game - Steam Edition</h1>
-    <a href="{{ url_for('game.play') }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mb-4">
-        Start Game
-    </a>
-    
-    <!-- Only show these buttons if the user is not logged in -->
-    {% if not current_user.is_authenticated %}
-    <div class="flex">
-        <a href="{{ url_for('users.login_route') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-l">
-            Login
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex justify-center items-center min-h-screen bg-gray-800">
+    <div class="text-center">
+        <h1 class="text-5xl text-white font-bold mb-8">Higher or Lower Game - Steam Edition</h1>
+        
+        <!-- Display the username if the user is logged in -->
+        {% if current_user.is_authenticated %}
+            <p class="text-xl text-white mb-4">Welcome back, {{ current_user.username }}!</p>
+        {% endif %}
+        
+        <a href="{{ url_for('game.play') }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mb-4">
+            Start Game
         </a>
-        <a href="{{ url_for('users.register_route') }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-r">
-            Register
-        </a>
+        
+        <!-- Only show these buttons if the user is not logged in -->
+        {% if not current_user.is_authenticated %}
+        <div class="flex justify-center">
+            <a href="{{ url_for('users.login_route') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-l mr-2">
+                Login
+            </a>
+            <a href="{{ url_for('users.register_route') }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-r">
+                Register
+            </a>
+        </div>
+        {% endif %}
     </div>
-    {% endif %}
+</div>
 {% endblock %}

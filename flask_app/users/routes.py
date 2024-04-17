@@ -16,7 +16,7 @@ def user_route(username):
     user = User.objects(username=username).first()
     profile_pic_bytes = io.BytesIO(user.profile_pic.read())
     profile_pic_base64 = base64.b64encode(profile_pic_bytes.getvalue()).decode()
-    scores = 1 #TODO: Fix this so that it shows the high score
+    scores = [-1] #TODO: Fix this so that it shows the high score
     return render_template('user.html', username=username, profile_pic_base64=profile_pic_base64, scores=scores)
 
 @users.route('/register', methods=['GET', 'POST'])
