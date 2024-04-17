@@ -14,6 +14,7 @@ class User(db.Document, UserMixin):
     username = db.StringField(unique=True, required=True)
     password = db.StringField(required=True)
     profile_pic = db.ImageField()
+    highScore = IntField()
     scores = ListField(IntField())
 
     def get_id(self):

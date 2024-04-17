@@ -57,8 +57,13 @@ def user_route(username):
     # TODO: Fix scores
     scores = [-1,-1,-1,-1,-1,-1]
 
-    return render_template('user.html', user=user, update_username_form=update_username_form,
-                           update_profile_pic_form=update_profile_pic_form, profile_pic_base64=profile_pic_base64, scores=scores)
+    return render_template('user.html', 
+                           user=user, 
+                           update_username_form=update_username_form,
+                           update_profile_pic_form=update_profile_pic_form, 
+                           profile_pic_base64=profile_pic_base64, 
+                           scores=scores,
+                           highscore=max(scores))
 
 
 
