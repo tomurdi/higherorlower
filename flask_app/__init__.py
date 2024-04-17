@@ -19,6 +19,7 @@ bcrypt = Bcrypt()
 
 from .users.routes import users
 from .main.routes import main
+from .game.routes import game
 
 
 def custom_404(e):
@@ -45,6 +46,7 @@ def create_app(test_config=None):
 
     app.register_blueprint(users)
     app.register_blueprint(main)
+    app.register_blueprint(game)
 
 
     # Register custom error handlers
