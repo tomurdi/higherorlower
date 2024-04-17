@@ -1,30 +1,53 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="flex items-center justify-center min-h-screen bg-gray-800 text-white">
-    <div class="bg-gray-700 p-6 rounded-lg shadow-lg max-w-sm w-full">
-        <div class="text-center">
-            {% if user %}
-            <h1 class="text-4xl font-bold mb-6"> Welcome back, {{ user.username }}</h1>
+<a href="{{ url_for('main.index') }}" class="text-white bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded">
+    Back to Home
+</a>
+<div class="container mx-auto py-6 px-4 h-screen flex items-center justify-center">
+    <div class="bg-gray-700 p-6 rounded-lg shadow-lg max-w-2xl w-full">
+        <div class="text-center mb-6 text-white">
             {% if profile_pic_base64 %}
-            <img src="data:image/jpeg;base64,{{ profile_pic_base64 }}" alt="Profile Picture" class="mx-auto h-40 w-40 rounded-full mb-6"/>
+            <img src="data:image/jpeg;base64,{{ profile_pic_base64 }}" alt="Profile Picture" class="mx-auto h-32 w-32 rounded-full mt-4"/>
             {% endif %}
-
-            <h2 class="text-2xl font-semibold mb-4">Previous Scores</h2>
-            {% if scores %}
-            <div class="space-y-2">
-                [
+            <h1 class="text-3xl font-bold">Welcome back, {{ user.username }}</h1>
+        </div>
+        
+        <div class="mb-6">
+            <h2 class="text-xl font-semibold mb-2 text-white">Previous Scores</h2>
+            <div class="flex flex-wrap justify-center">
+                <!-- TODO: Dot Plot / Score Display -->
                 {% for score in scores %}
-                <div class="inline-block rounded-full  px-2 py-1">{{ score }}</div>
+                <span class="block rounded-full text-white text-xs px-2 py-1 m-1 bg-gray-700">{{ score }}</span>
                 {% endfor %}
-                ]
             </div>
-            {% else %}
-            <p class="text-lg">No scores to display.</p>
-            {% endif %}
-            {% else %}
-            <p class="text-lg">User not found.</p>
-            {% endif %}
+        </div>
+
+        <hr>
+        <br>
+
+        <div class="text-white">
+            <form method="POST" action="" class="mb-4">
+                {{ update_username_form.hidden_tag() }}
+                <div class="mb-4">
+                    {{ update_username_form.username.label(class="block text-white text-sm font-bold mb-2") }}
+                    {{ update_username_form.username(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+                </div>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update Username</button>
+            </form>
+
+            <form method="POST" action="" enctype="multipart/form-data">
+                {{ update_profile_pic_form.hidden_tag() }}
+                <div class="mb-4">
+                    {{ update_profile_pic_form.picture.label(class="block text-white text-sm font-bold mb-2") }}
+                    {{ update_profile_pic_form.picture(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+                </div>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update Photo</button>
+            </form>
+        </div>
+
+        <div class="text-center mt-6">
+            <a href="{{ url_for('users.logout_route') }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Logout</a>
         </div>
     </div>
 </div>

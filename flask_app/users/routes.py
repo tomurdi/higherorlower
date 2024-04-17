@@ -4,22 +4,50 @@ from werkzeug.utils import secure_filename
 import io
 import base64
 from ..models import User
-from ..forms import RegistrationForm, LoginForm, UploadPhotoForm
+from ..forms import RegistrationForm, LoginForm, UpdateUsernameForm, UpdateProfilePicForm
+
 from .. import bcrypt
 
 users = Blueprint("users", __name__)
 
 
 
-@users.route('/user/<username>')
+@users.route('/user/<username>', methods=['GET', 'POST'])
+@login_required
 def user_route(username):
+    # Forms for updating the username and profile picture
+    update_username_form = UpdateUsernameForm()
+    update_profile_pic_form = UpdateProfilePicForm()
+
+    # Get the current user's details
     user = User.objects(username=username).first()
     if not user:
         abort(404)
 
-    # Assume 'scores' is a list attribute of the 'user' document
-    # If it's not, you'll need to adjust according to your database schema
-    scores = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+    if update_username_form.validate_on_submit():
+        # Process the update of the username
+        new_username = update_username_form.username.data
+        existing_user = User.objects(username=new_username).first()
+        if existing_user:
+            flash("Username is taken")
+        else:
+            user.modify(username=new_username)
+            user.save()
+            flash("Username updated successfully")
+            return redirect(url_for('users.user_route', username=new_username))
+
+    if update_profile_pic_form.validate_on_submit():
+        # Process the update of the profile picture
+        image = update_profile_pic_form.picture.data
+        filename = secure_filename(image.filename)
+        content_type = f'image/{filename.rsplit('.', 1)[1].lower()}'
+        if user.profile_pic.get() is None:
+            user.profile_pic.put(image.stream, content_type=content_type)
+        else:
+            user.profile_pic.replace(image.stream, content_type=content_type)
+        user.save()
+        flash("Profile picture updated successfully")
+        return redirect(url_for('users.user_route', username=username))
 
     if user.profile_pic:
         profile_pic_bytes = io.BytesIO(user.profile_pic.read())
@@ -27,7 +55,12 @@ def user_route(username):
     else:
         profile_pic_base64 = None
 
-    return render_template('user.html', user=user, profile_pic_base64=profile_pic_base64, scores=scores)
+    # TODO: Fix scores
+    scores = [-1,-1,-1,-1,-1,-1]
+
+    return render_template('user.html', user=user, update_username_form=update_username_form,
+                           update_profile_pic_form=update_profile_pic_form, profile_pic_base64=profile_pic_base64, scores=scores)
+
 
 
 

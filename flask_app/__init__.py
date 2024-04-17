@@ -53,6 +53,6 @@ def create_app(test_config=None):
     app.register_error_handler(404, custom_404)
 
     # Specify the login view
-    login_manager.login_view = "users.login"
+    login_manager.login_view = "users.login_route"
 
     return app
