@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block content %}
+    <h1 class="text-5xl text-gray-800 font-bold mb-8">Higher or Lower Game - Steam Edition</h1>
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mb-4">
+        Start Game
+    </button>
+    
+    <!-- Only show these buttons if the user is not logged in -->
+    {% if not current_user.is_authenticated %}
+    <div class="flex">
+        <a href="{{ url_for('users.login_route') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-l">
+            Login
+        </a>
+        <a href="{{ url_for('users.register_route') }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-r">
+            Register
+        </a>
+    </div>
+    {% endif %}
+{% endblock %}
