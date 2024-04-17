@@ -14,13 +14,17 @@
         </div>
         
         <div class="mb-6">
-            <h2 class="text-xl font-semibold mb-2 text-white">Previous Scores</h2>
-            <div class="flex flex-wrap justify-center">
-                <!-- TODO: Dot Plot / Score Display -->
-                {% for score in scores %}
-                <span class="block rounded-full text-white text-xs px-2 py-1 m-1 bg-gray-700">{{ score }}</span>
-                {% endfor %}
-            </div>
+            <fieldset class="border border-gray-500 p-4 mb-4">
+                <legend>
+                    <h2 class="text-xl font-semibold mb-2 text-white">Previous Scores</h2>
+                </legend>
+                <div class="flex flex-wrap justify-center">
+                    <!-- TODO: Dot Plot / Score Display -->
+                    {% for score in scores %}
+                    <span class="block rounded-full text-white text-xs px-2 py-1 m-1 bg-gray-700">{{ score }}</span>
+                    {% endfor %}
+                </div>
+            </fieldset>
         </div>
 
         <hr>

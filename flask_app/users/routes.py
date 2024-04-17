@@ -46,7 +46,6 @@ def user_route(username):
         else:
             user.profile_pic.replace(image.stream, content_type=content_type)
         user.save()
-        flash("Profile picture updated successfully")
         return redirect(url_for('users.user_route', username=username))
 
     if user.profile_pic:
