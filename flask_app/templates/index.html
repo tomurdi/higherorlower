@@ -5,7 +5,6 @@
     <div class="text-center">
         <h1 class="text-5xl text-white font-bold mb-8">Higher or Lower Game - Steam Edition</h1>
         
-        <!-- Display the username if the user is logged in -->
         {% if current_user.is_authenticated %}
             <p class="text-xl text-white mb-4">Welcome back, {{ current_user.username }}!</p>
         {% endif %}
@@ -14,8 +13,13 @@
             Start Game
         </a>
         
-        <!-- Only show these buttons if the user is not logged in -->
-        {% if not current_user.is_authenticated %}
+        <!-- Show the profile button if the user is logged in -->
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('users.user_route', username=current_user.username) }}" class="inline-block bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-4">
+            My Profile
+        </a>
+        {% else %}
+        <!-- Show login and register buttons if the user is not logged in -->
         <div class="flex justify-center">
             <a href="{{ url_for('users.login_route') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-l mr-2">
                 Login

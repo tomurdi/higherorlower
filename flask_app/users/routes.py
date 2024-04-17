@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, abort
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.utils import secure_filename
 import io
@@ -14,10 +14,22 @@ users = Blueprint("users", __name__)
 @users.route('/user/<username>')
 def user_route(username):
     user = User.objects(username=username).first()
-    profile_pic_bytes = io.BytesIO(user.profile_pic.read())
-    profile_pic_base64 = base64.b64encode(profile_pic_bytes.getvalue()).decode()
-    scores = [-1] #TODO: Fix this so that it shows the high score
-    return render_template('user.html', username=username, profile_pic_base64=profile_pic_base64, scores=scores)
+    if not user:
+        abort(404)
+
+    # Assume 'scores' is a list attribute of the 'user' document
+    # If it's not, you'll need to adjust according to your database schema
+    scores = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+
+    if user.profile_pic:
+        profile_pic_bytes = io.BytesIO(user.profile_pic.read())
+        profile_pic_base64 = base64.b64encode(profile_pic_bytes.getvalue()).decode()
+    else:
+        profile_pic_base64 = None
+
+    return render_template('user.html', user=user, profile_pic_base64=profile_pic_base64, scores=scores)
+
+
 
 @users.route('/register', methods=['GET', 'POST'])
 def register_route():
@@ -31,6 +43,7 @@ def register_route():
             user.save()
             return redirect(url_for('users.login_route'))
     return render_template('register.html', form=form)
+
 
 @users.route('/login', methods=['GET', 'POST'])
 def login_route():
@@ -47,10 +60,12 @@ def login_route():
                 flash("Failed to log in!")
     return render_template('login.html', form=form)
 
+
 @users.route('/logout')
 def logout_route():
     logout_user()
     return redirect(url_for('main.index'))
+
 
 @users.route('/uploadphoto', methods=['GET', 'POST'])
 @login_required
@@ -68,3 +83,9 @@ def uploadphoto_route():
         return redirect(url_for('users.user_route', username=current_user.username))
     return render_template('uploadphoto.html', form=form)
 
+
+def add_score_to_user(username, new_score):
+    user = User.objects(username=username).first()
+    if user:
+        user.scores.append(new_score)
+        user.save()

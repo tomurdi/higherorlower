@@ -1,23 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mx-auto py-6 px-4">
-    <div class="text-center mb-6">
-        <h1 class="text-2xl font-bold">{{ username }}</h1>
-        <img src="data:image/jpeg;base64,{{ profile_pic_base64 }}" alt="Profile Picture" class="mx-auto h-32 w-32 rounded-full"/>
-    </div>
-    
-    <div class="mb-6">
-        <h2 class="text-xl font-semibold mb-2">Previous Scores</h2>
-        {% if scores %}
-        <ul class="list-disc list-inside">
-            {% for score in scores %}
-            <li>{{ score }}</li>
-            {% endfor %}
-        </ul>
-        {% else %}
-        <p>No scores to display.</p>
-        {% endif %}
+<div class="flex items-center justify-center min-h-screen bg-gray-800 text-white">
+    <div class="bg-gray-700 p-6 rounded-lg shadow-lg max-w-sm w-full">
+        <div class="text-center">
+            {% if user %}
+            <h1 class="text-4xl font-bold mb-6"> Welcome back, {{ user.username }}</h1>
+            {% if profile_pic_base64 %}
+            <img src="data:image/jpeg;base64,{{ profile_pic_base64 }}" alt="Profile Picture" class="mx-auto h-40 w-40 rounded-full mb-6"/>
+            {% endif %}
+
+            <h2 class="text-2xl font-semibold mb-4">Previous Scores</h2>
+            {% if scores %}
+            <div class="space-y-2">
+                [
+                {% for score in scores %}
+                <div class="inline-block rounded-full  px-2 py-1">{{ score }}</div>
+                {% endfor %}
+                ]
+            </div>
+            {% else %}
+            <p class="text-lg">No scores to display.</p>
+            {% endif %}
+            {% else %}
+            <p class="text-lg">User not found.</p>
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}
