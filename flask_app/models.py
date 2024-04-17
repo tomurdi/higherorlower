@@ -1,6 +1,7 @@
 from flask_login import UserMixin
 from datetime import datetime
 from . import db, login_manager
+from mongoengine.fields import ListField, IntField
 
 
 
@@ -13,7 +14,7 @@ class User(db.Document, UserMixin):
     username = db.StringField(unique=True, required=True)
     password = db.StringField(required=True)
     profile_pic = db.ImageField()
-    #TODO: I think we need a highscore option here
+    scores = ListField(IntField())
 
     def get_id(self):
         return self.username
