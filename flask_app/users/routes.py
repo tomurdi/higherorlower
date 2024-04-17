@@ -3,15 +3,15 @@ from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.utils import secure_filename
 import io
 import base64
-from ..models import User, Post
+from ..models import User
 from ..forms import RegistrationForm, LoginForm, UploadPhotoForm
 from .. import bcrypt
 
-users_blueprint = Blueprint('users', __name__)
+users = Blueprint("users", __name__)
 
 
 
-@users_blueprint.route('/user/<username>')
+@users.route('/user/<username>')
 def user_route(username):
     user = User.objects(username=username).first()
     profile_pic_bytes = io.BytesIO(user.profile_pic.read())
@@ -19,10 +19,10 @@ def user_route(username):
     scores = 1 #TODO: Fix this so that it shows the high score
     return render_template('user.html', username=username, profile_pic_base64=profile_pic_base64, scores=scores)
 
-@users_blueprint.route('/register', methods=['GET', 'POST'])
+@users.route('/register', methods=['GET', 'POST'])
 def register_route():
     if current_user.is_authenticated:
-        return redirect(url_for('main.index_route'))
+        return redirect(url_for('main.index'))
     form = RegistrationForm()
     if request.method == 'POST':
         if form.validate_on_submit():
@@ -32,10 +32,10 @@ def register_route():
             return redirect(url_for('users.login_route'))
     return render_template('register.html', form=form)
 
-@users_blueprint.route('/login', methods=['GET', 'POST'])
+@users.route('/login', methods=['GET', 'POST'])
 def login_route():
     if current_user.is_authenticated:
-        return redirect(url_for('main.index_route'))
+        return redirect(url_for('main.index'))
     form = LoginForm()
     if request.method == 'POST':
         if form.validate_on_submit():
@@ -47,12 +47,12 @@ def login_route():
                 flash("Failed to log in!")
     return render_template('login.html', form=form)
 
-@users_blueprint.route('/logout')
+@users.route('/logout')
 def logout_route():
     logout_user()
-    return redirect(url_for('main.index_route'))
+    return redirect(url_for('main.index'))
 
-@users_blueprint.route('/uploadphoto', methods=['GET', 'POST'])
+@users.route('/uploadphoto', methods=['GET', 'POST'])
 @login_required
 def uploadphoto_route():
     form = UploadPhotoForm()
