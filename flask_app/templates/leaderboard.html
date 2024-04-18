@@ -1,5 +1,10 @@
 <!-- TODO -->
 
 {% extends "base.html" %} {% block content %}
-<h1>leaderboard.html</h1>
+<h1>leaderboard</h1>
+{% for username, user_score in scores %}
+    <ol>
+        <li>User Name: {{username}} Score: {{user_score}}</li>
+    </ol>
+{% endfor %}
 {% endblock %}

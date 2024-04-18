@@ -4,7 +4,7 @@ from werkzeug.utils import secure_filename
 import io
 import base64
 from ..models import User
-from ..forms import RegistrationForm, LoginForm, UpdateUsernameForm, UpdateProfilePicForm
+from ..forms import RegistrationForm, LoginForm, UpdateUsernameForm, UpdateProfilePicForm, Up
 
 from .. import bcrypt
 
@@ -55,7 +55,8 @@ def user_route(username):
         profile_pic_base64 = None
 
     # TODO: Fix scores
-    scores = [-1,-1,-1,-1,-1,-1]
+    user = User.objects(username=username).first()
+    scores = user.scores
 
     return render_template('user.html', 
                            user=user, 
@@ -107,7 +108,7 @@ def logout_route():
 @users.route('/uploadphoto', methods=['GET', 'POST'])
 @login_required
 def uploadphoto_route():
-    form = UploadPhotoForm()
+    form = UpdateProfilePicForm()
     if form.validate_on_submit():
         image = form.photo.data
         filename = secure_filename(image.filename)
@@ -126,3 +127,7 @@ def add_score_to_user(username, new_score):
     if user:
         user.scores.append(new_score)
         user.save()
+        user.highScore = max(user.scores)
+        user.save()
+    else:
+        return render_template('404.html')
