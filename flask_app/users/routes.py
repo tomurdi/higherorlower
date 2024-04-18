@@ -4,7 +4,7 @@ from werkzeug.utils import secure_filename
 import io
 import base64
 from ..models import User
-from ..forms import RegistrationForm, LoginForm, UpdateUsernameForm, UpdateProfilePicForm, Up
+from ..forms import RegistrationForm, LoginForm, UpdateUsernameForm, UpdateProfilePicForm
 
 from .. import bcrypt
 
