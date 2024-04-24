@@ -17,7 +17,10 @@ class GameClient(object):
             resp = self.sess.get(self.base_url, params={'page': i})
             if resp.status_code == 200:
                 for game_dict in resp.json()['results']:
-                    tup = (game_dict["name"],game_dict["rating"],game_dict["added"],game_dict["background_image"])
+                    tup = (game_dict["name"], 
+                           game_dict["background_image"], 
+                           game_dict["rating"], 
+                           game_dict["added"])
                     games.append(tup)
             else:
                 print(f"Failed to get data for page {i}, status code: {resp.status_code}")
