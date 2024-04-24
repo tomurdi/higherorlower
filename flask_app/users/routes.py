@@ -40,7 +40,7 @@ def user_route(username):
         # Process the update of the profile picture
         image = update_profile_pic_form.picture.data
         filename = secure_filename(image.filename)
-        content_type = f'image/{filename.rsplit('.', 1)[1].lower()}'
+        content_type = f'image/{filename.rsplit(".", 1)[1].lower()}'
         if user.profile_pic.get() is None:
             user.profile_pic.put(image.stream, content_type=content_type)
         else:
