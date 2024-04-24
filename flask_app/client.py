@@ -4,14 +4,6 @@
 
 import requests
 
-# class Game(object):
-#     def __init__(self, omdb_json, detailed=False) -> None:
-#         if detailed:
-#             self.name = omdb_json["results"]["name"]
-#             self.rating = omdb_json["results"]["rating"]
-#             self.image = omdb_json["results"]["background_image"]
-#             self.downloads = omdb_json["results"]["added"]
-
 class GameClient(object):
     def __init__(self,) -> None:
         self.sess = requests.Session()
