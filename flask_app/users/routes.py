@@ -40,7 +40,7 @@ def user_route(username):
         # Process the update of the profile picture
         image = update_profile_pic_form.picture.data
         filename = secure_filename(image.filename)
-        content_type = f'image/{filename.rsplit('.', 1)[1].lower()}'
+        content_type = f'image/{filename.rsplit(".", 1)[1].lower()}'
         if user.profile_pic.get() is None:
             user.profile_pic.put(image.stream, content_type=content_type)
         else:
@@ -56,7 +56,7 @@ def user_route(username):
 
     # TODO: Fix scores
     user = User.objects(username=username).first()
-    scores = user.scores
+    scores = user.scores if user.scores else []
 
     return render_template('user.html', 
                            user=user, 
@@ -64,7 +64,7 @@ def user_route(username):
                            update_profile_pic_form=update_profile_pic_form, 
                            profile_pic_base64=profile_pic_base64, 
                            scores=scores,
-                           highscore=max(scores))
+                           highscore=max(scores) if scores else 0)
 
 
 
