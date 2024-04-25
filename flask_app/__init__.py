@@ -13,12 +13,10 @@ from werkzeug.utils import secure_filename
 import os
 from .client import GameClient
 
-API_KEY = 'ae19bf1807254a92af216b11d467792b'
-
 db = MongoEngine()
 login_manager = LoginManager()
 bcrypt = Bcrypt()
-game_client = GameClient(API_KEY)
+game_client = GameClient()
 
 
 from .users.routes import users
