@@ -9,9 +9,11 @@ game = Blueprint('game', __name__)
 game_client = GameClient()
 
 @game.route('/play')
-def play():
-    return render_template('game.html', 
-                           game_list=sorted(game_client.get_game_list(),key=lambda x:x[3]))
+def play(username=None):
+    user = User.objects(username=username).first() if username else None
+    return render_template('game.html',
+                            user=user,
+                            game_list=sorted(game_client.get_game_list(),key=lambda x:x[3]))
 
 @game.route('/leaderboard')
 def leaderboard():

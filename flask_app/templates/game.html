@@ -1,5 +1,29 @@
 <!-- TODO -->
 
 {% extends "base.html" %} {% block content %}
-<h1>game.html</h1>
+<a href="{{ url_for('main.index') }}" class="text-white bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded">
+    Back to Home
+</a>
+<header class="bg-gray-800 text-white py-4">
+    
+    <div class="container mx-auto text-center">
+        {% if user %}
+            <h1 class="text-3xl font-bold">Welcome, {{ user.username }}!</h1>
+            <p class="mt-2">Your current score: TODO</p>
+            <p class="mt-2">Your high score: {{ user.highScore }}</p>
+        {% else %}
+            <h1 class="text-3xl font-bold">Welcome!</h1>
+            <p class="mt-2">Your current score: TODO</p>
+        {% endif %}
+    </div>
+</header>
+
+<div class="container mx-auto mt-10 grid grid-cols-1 md:grid-cols-2 gap-10">
+    {% for game in game_list[:2] %}
+    <div class="bg-gray-800 p-5 border border-gray-500 rounded-xl transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl w-full">
+        <h3 class="text-3xl font-semibold text-white text-center mb-3">{{ game[0] }}</h3>
+        <img src="{{ game[1] }}" alt="{{ game[0] }} background image" class="rounded-xl object-cover h-80 w-full">            
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}
