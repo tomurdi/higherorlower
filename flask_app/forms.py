@@ -4,9 +4,6 @@ from wtforms.fields import StringField, SubmitField, PasswordField, FileField
 from wtforms.validators import ValidationError, InputRequired, Length, Email, EqualTo 
 from .models import User
 
-
-
-
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[InputRequired()])
     password = PasswordField('Password', validators=[InputRequired()])
@@ -31,12 +28,13 @@ class RegistrationForm(FlaskForm):
         
 class UpdateUsernameForm(FlaskForm):
     username = StringField('Username', validators=[InputRequired(), Length(min=1, max=40)])
-    submit_username = SubmitField('Sign Up') 
+    submit_username = SubmitField('Update Username') 
     def validate_username(self, username):
+        print("Yametee")
         user = User.objects(username=username.data).first()
         if user is not None:
             raise ValidationError('Username is taken')
 
 class UpdateProfilePicForm(FlaskForm):
     picture = FileField('Photo', validators=[FileRequired(), FileAllowed(['jpg', 'png'], 'Images only!')])
-    submit_picture = SubmitField('Update')
+    submit_picture = SubmitField('Update Profile Picture')

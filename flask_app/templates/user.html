@@ -37,17 +37,33 @@
                 <div class="mb-4">
                     {{ update_username_form.username.label(class="block text-white text-sm font-bold mb-2") }}
                     {{ update_username_form.username(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+                    {% if update_username_form.username.errors %}
+                        <div class="error" role="alert">
+                            {% for error in update_username_form.username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update Username</button>
+                <!-- <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update Username</button> -->
+                {{ update_username_form.submit_username(class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline") }}
             </form>
 
             <form method="POST" action="" enctype="multipart/form-data">
                 {{ update_profile_pic_form.hidden_tag() }}
                 <div class="mb-4">
                     {{ update_profile_pic_form.picture.label(class="block text-white text-sm font-bold mb-2") }}
-                    {{ update_profile_pic_form.picture(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+                    {{ update_profile_pic_form.picture(class="form-content shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline") }}
+                    {% if update_profile_pic_form.picture.errors %}
+                        <div class="error" role="alert">
+                            {% for error in update_profile_pic_form.picture.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update Photo</button>
+                <!-- <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update Photo</button> -->
+                {{ update_profile_pic_form.submit_picture(class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline") }}
             </form>
         </div>
 

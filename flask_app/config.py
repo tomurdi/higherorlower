@@ -1,4 +1,3 @@
-#TODO
-SECRET_KEY = b'\xc2\x10\x8e\xb2\x96<F?C\xf8\xdcP\xdc;Z\xd8'
-# MONGODB_HOST = 'mongodb+srv://urdinola:abcd1234@cluster0.vcqkxdn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
-MONGODB_HOST = ""
+# Stores all configuration values
+SECRET_KEY = b'\xc6M9\xe9\xf7<r+\x87;8\xd1\xbd\xcb\x91\x9c'
+MONGODB_HOST = 'mongodb+srv://Mittens1415:nRl%38jJUokLjxVDoa@cluster1415.r81rd4e.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1415'
