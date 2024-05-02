@@ -10,7 +10,9 @@ from .. import bcrypt
 game = Blueprint('game', __name__)
 game_client = GameClient()
 global global_current_score
+global length
 global_current_score = 0
+length = len(game_client.get_game_list())
 
 def get_b64_img(username):
     user = User.objects(username=username).first()
@@ -20,12 +22,35 @@ def get_b64_img(username):
     image = base64.b64encode(bytes_im.getvalue()).decode()
     return image
 
-@game.route('/play')
+
+@game.route('/hard')
 @login_required
-def play(username=None):
+def hard(username=None):
     user = User.objects(username=username).first() if username else None
     games_lst = sorted(game_client.get_game_list(),key=lambda x:x[3])
-    selected_games = random.sample(games_lst, 2)
+    easy = games_lst[0:(length // 3)]
+    selected_games = random.sample(easy, 2)
+    session['selected_games'] = easy
+    return render_template('game.html',user=user,game_list=selected_games,game_client=game_client,score=global_current_score)
+
+
+@game.route('/medium')
+@login_required
+def medium(username=None):
+    user = User.objects(username=username).first() if username else None
+    games_lst = sorted(game_client.get_game_list(),key=lambda x:x[3])
+    medium = games_lst[(length // 3):(2*length)//3]
+    selected_games = random.sample(medium, 2)
+    session['selected_games'] = selected_games
+    return render_template('game.html',user=user,game_list=selected_games,game_client=game_client,score=global_current_score)
+
+@game.route('/easy')
+@login_required
+def easy(username=None):
+    user = User.objects(username=username).first() if username else None
+    games_lst = sorted(game_client.get_game_list(),key=lambda x:x[3])
+    hard = games_lst[(2*length) // 3:]
+    selected_games = random.sample(hard, 2)
     session['selected_games'] = selected_games
     return render_template('game.html',user=user,game_list=selected_games,game_client=game_client,score=global_current_score)
 
