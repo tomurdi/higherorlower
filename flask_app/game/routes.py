@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, session
 import base64, io
 import random
 from io import BytesIO
-from flask_login import current_user
+from flask_login import current_user, login_required
 from ..models import User
 from ..client import GameClient
 
@@ -12,6 +12,7 @@ global global_current_score
 global_current_score = 0
 
 @game.route('/play')
+@login_required
 def play(username=None):
     user = User.objects(username=username).first() if username else None
     games_lst = sorted(game_client.get_game_list(),key=lambda x:x[3])
