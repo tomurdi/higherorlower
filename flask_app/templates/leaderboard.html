@@ -12,9 +12,9 @@
     </div>
     <ol class="divide-y divide-gray-700">
         {% for username, profile_pic, user_score in scores %}
-        <li class="flex items-center justify-between py-4 px-6"> <!-- Adjusted here -->
+        <li class="flex items-center justify-between py-4 px-6">
             <span class="text-green-300 text-lg font-medium">{{ loop.index }}.</span>
-            <div class="flex items-center"> <!-- Adjusted here -->
+            <div class="flex items-center"> 
                 <div>
                     <h3 class="text-lg font-bold text-orange-500">{{ username }}</h3>
                     <p class="text-yellow-400 font-bold text-base">{{ user_score }} points</p>
