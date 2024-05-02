@@ -68,7 +68,7 @@ def user_route(username):
                 current_user.profile_pic.replace(image.stream, content_type=content_type)
             current_user.save()
             return redirect(url_for('users.user_route',username=current_user.username))
-    scores = scores if current_user.scores else []
+    scores = current_user.scores if current_user.scores else []
     return render_template('user.html',user=current_user, 
                            update_username_form=update_username_form,
                            update_profile_pic_form=update_profile_pic_form, 

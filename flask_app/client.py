@@ -12,7 +12,7 @@ class GameClient(object):
     def get_game_list(self):
         games = []
         # Update 5 if you want more/less games
-        num_pages = 5
+        num_pages = 10
         for i in range(1,num_pages):
             resp = self.sess.get(self.base_url, params={'page': i})
             if resp.status_code == 200:

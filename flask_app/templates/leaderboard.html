@@ -5,10 +5,21 @@
     Back to Home
 </a>
 
-<h1>leaderboard</h1>
-{% for username, user_score in scores %}
-    <ol>
-        <li>User Name: {{username}} Score: {{user_score}}</li>
+<div class="bg-transparent shadow-md rounded-md overflow-hidden max-w-lg mx-auto mt-16">
+    <div class="bg-white py-2 px-4">
+        <h2 class="text-xl font-semibold text-red-600">Leaderboard</h2>
+    </div>
+    <ol class="divide-y divide-gray-700">
+        {% for username, user_score in scores %}
+        <li class="flex items-center py-4 px-6">
+            <span class="text-gray-300 text-lg font-medium mr-4">{{ loop.index }}.</span>
+            <div class="flex-1 flex justify-between">
+                <h3 class="text-lg font-bold text-blue-600">{{ username }}</h3>
+                <p class="text-green-400 font-bold text-base">{{ user_score }} points</p>
+            </div>            
+        </li>
+        {% endfor %}
     </ol>
-{% endfor %}
+</div>
+
 {% endblock %}

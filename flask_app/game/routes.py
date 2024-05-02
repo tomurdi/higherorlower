@@ -57,6 +57,9 @@ def process_selection():
                 current_user.highScore = max(current_user.highScore,max(current_user.scores),global_current_score)
             current_user.save()
             return render_template('loss.html',user=current_user,lastScore=current_user.scores[-1])
+    else:
+        session.pop('selected_games', None)
+        global_current_score = 0
 
 
 @game.route('/leaderboard')
@@ -69,6 +72,6 @@ def leaderboard():
     user_scores = []
     for user in all_users:
         user_scores.append((user.username,user.highScore if user.highScore else 0 ))
-    user_scores.sort(key= lambda x: x[1])
-    return render_template('leaderboard.html',scores=user_scores)
+    user_scores.sort(key= lambda x: -x[1])
+    return render_template('leaderboard.html',user=current_user,scores=user_scores)
 
