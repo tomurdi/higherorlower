@@ -5,11 +5,20 @@ from io import BytesIO
 from flask_login import current_user, login_required
 from ..models import User
 from ..client import GameClient
+from .. import bcrypt
 
 game = Blueprint('game', __name__)
 game_client = GameClient()
 global global_current_score
 global_current_score = 0
+
+def get_b64_img(username):
+    user = User.objects(username=username).first()
+    if user.profile_pic is None:
+        return None
+    bytes_im = io.BytesIO(user.profile_pic.read())
+    image = base64.b64encode(bytes_im.getvalue()).decode()
+    return image
 
 @game.route('/play')
 @login_required
@@ -72,7 +81,7 @@ def leaderboard():
     all_users = User.objects()
     user_scores = []
     for user in all_users:
-        user_scores.append((user.username,user.highScore if user.highScore else 0 ))
-    user_scores.sort(key= lambda x: -x[1])
-    return render_template('leaderboard.html',user=current_user,scores=user_scores)
+        user_scores.append((user.username,get_b64_img(user.username),user.highScore if user.highScore else 0 ))
+    user_scores.sort(key= lambda x: -x[2])
+    return render_template('leaderboard.html',scores=user_scores)
 
