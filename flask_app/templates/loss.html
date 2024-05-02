@@ -1,0 +1,13 @@
+{% extends "base.html" %} 
+{% block content %}
+<a href="{{ url_for('main.index') }}" class="text-white bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded">
+    Back to Home
+</a>
+
+<div class="container mx-auto text-center mt-10">
+    <h1 class="text-3xl font-bold text-red-500 mb-4">YOU LOST</h1>
+    <p class="text-lg">Your current score: {{ lastScore }}</p>
+    <p class="text-lg">Your highest score: {{ user.highScore }}</p>
+    <a href="{{ url_for('game.leaderboard') }}" class="text-white bg-green-500 hover:bg-green-700 font-bold py-2 px-4 rounded mt-4">VIEW LEADERBOARD</a>
+</div>
+{% endblock %}

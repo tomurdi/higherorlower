@@ -81,30 +81,12 @@ def logout_route():
     logout_user()
     return redirect(url_for('main.index'))
 
-
-@users.route('/uploadphoto', methods=['GET', 'POST'])
-@login_required
-def uploadphoto_route():
-    form = UpdateProfilePicForm()
-    if form.validate_on_submit():
-        image = form.photo.data
-        filename = secure_filename(image.filename)
-        content_type = f'images/{filename[-3:]}'
-        if current_user.profile_pic.get() is None:
-            current_user.profile_pic.put(image.stream, content_type=content_type)
-        else:
-            current_user.profile_pic.replace(image.stream, content_type=content_type)
-        current_user.save()
-        return redirect(url_for('users.user_route', username=current_user.username))
-    return render_template('uploadphoto.html', form=form)
-
-
-def add_score_to_user(username, new_score):
-    user = User.objects(username=username).first()
-    if user:
-        user.scores.append(new_score)
-        user.save()
-        user.highScore = max(user.scores)
-        user.save()
-    else:
-        return render_template('404.html')
+# def add_score_to_user(username, new_score):
+#     user = User.objects(username=username).first()
+#     if user:
+#         user.scores.append(new_score)
+#         user.save()
+#         user.highScore = max(user.scores)
+#         user.save()
+#     else:
+#         return render_template('404.html')
