@@ -40,7 +40,7 @@ def process_selection():
             games_lst = [game for game in game_client.get_game_list() if game not in selected_games]
             session.pop('selected_games', None)
             games_lst = sorted(games_lst, key=lambda x: x[3])
-            new_selected_games = random.sample(games_lst, 2)
+            new_selected_games = random.choices(games_lst, k=2)
             session['selected_games'] = new_selected_games
             if not(current_user.highScore):
                 current_user.highScore = global_current_score
