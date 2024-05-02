@@ -1,7 +1,7 @@
 {% extends "base.html" %} 
 {% block content %}
 <div class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br text-white">
-    <h1 class="text-4xl font-bold mb-2">You Lost!</h1>
+    <h1 class="text-4xl font-bold mb-2 text-red-600">You Lost!</h1>
     <p class="text-xl mb-1">Your current score: {{ lastScore }}</p>
     <p class="text-xl mb-5">Your highest score: {{ user.highScore }}</p>
     <a href="{{ url_for('main.index') }}" class="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded transition duration-300 ease-in-out text-white">
