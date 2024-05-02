@@ -1,6 +1,10 @@
 <!-- TODO -->
 
 {% extends "base.html" %} {% block content %}
+<a href="{{ url_for('main.index') }}" class="text-white bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded">
+    Back to Home
+</a>
+
 <h1>leaderboard</h1>
 {% for username, user_score in scores %}
     <ol>

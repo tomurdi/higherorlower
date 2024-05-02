@@ -47,13 +47,14 @@ def process_selection():
                 current_user.highScore = max(current_user.highScore,global_current_score)          
             return render_template('game.html',user=current_user,game_list=new_selected_games,game_client=game_client,score=global_current_score)
         else:
+            session.pop('selected_games', None)
             current_user.scores.append(global_current_score)
             global_current_score = 0
             current_user.save()
             if not(current_user.highScore):
-                current_user.highScore = max(current_user.scores)
+                current_user.highScore = max(max(current_user.scores),global_current_score)
             else:
-                current_user.highScore = max(current_user.highScore,current_user.scores)
+                current_user.highScore = max(current_user.highScore,max(current_user.scores),global_current_score)
             current_user.save()
             return render_template('loss.html',user=current_user,lastScore=current_user.scores[-1])
 
