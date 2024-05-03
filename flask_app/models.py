@@ -3,8 +3,6 @@ from datetime import datetime
 from . import db, login_manager
 from mongoengine.fields import ListField, IntField
 
-
-
 @login_manager.user_loader
 def load_user(user_id):
     return User.objects(username=user_id).first()
