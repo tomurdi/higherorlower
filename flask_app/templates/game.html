@@ -6,12 +6,12 @@
 <header class="text-white py-4">
     <div class="container mx-auto text-center">
         {% if user %}
-            <h1 class="text-3xl font-bold">Welcome, {{ user.username }}!</h1>
-            <p class="mt-2">Your current score: {{score}}</p>
-            <p class="mt-2">Your high score: {{ user.highScore }}</p>
+            <h1 class="text-3xl font-bold bg-gradient-to-r from-yellow-500 to-red-500 text-transparent bg-clip-text">Welcome, {{ user.username }}!</h1>
+            <p class="mt-2 bg-gradient-to-r from-yellow-500 to-red-500 text-transparent bg-clip-text">Your current score: {{score}}</p>
+            <p class="mt-2 bg-gradient-to-r from-yellow-500 to-red-500 text-transparent bg-clip-text">Your high score: {{ user.highScore }}</p>
         {% else %}
-            <h1 class="text-3xl font-bold">Welcome!</h1>
-            <p class="mt-2">Your current score: {{score}}</p>
+            <h1 class="text-3xl font-bold bg-gradient-to-r from-yellow-500 to-red-500 text-transparent bg-clip-text">Welcome!</h1>
+            <p class="mt-2 bg-gradient-to-r from-yellow-500 to-red-500 text-transparent bg-clip-text">Your current score: {{score}}</p>
         {% endif %}
     </div>
 </header>
@@ -19,7 +19,7 @@
 <form action="{{ url_for('game.process_selection') }}" method="post" class="flex flex-wrap justify-center">
     {% for game in game_list %}
         <div class="bg-black p-5 border border-gray-500 rounded-xl transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl w-full md:w-1/2">
-            <h3 class="text-3xl font-semibold text-white text-center mb-3">{{ game[0] }}</h3>
+            <h3 class="text-3xl font-semibold bg-gradient-to-r from-yellow-500 to-red-500 text-transparent bg-clip-text text-center mb-3">{{ game[0] }}</h3>
             <button type="submit" name="selected_game" value="{{ game[0] }}">
                 <img src="{{ game[1] }}" alt="{{ game[0] }} background image" class="rounded-xl object-cover h-80 w-full">
             </button>

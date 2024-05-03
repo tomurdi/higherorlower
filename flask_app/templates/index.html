@@ -4,11 +4,11 @@
 <div class="flex justify-center items-center min-h-screen bg-black">
     <div class="text-center">
         <h1 class="text-5xl font-bold mb-8 relative z-10">
-            <span class="bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text">Higher or Lower Game - Steam Edition</span>
+            <span class="bg-gradient-to-r from-yellow-500 to-red-500 text-transparent bg-clip-text">Higher or Lower Game - Steam Edition</span>
         </h1>
         
         {% if current_user.is_authenticated %}
-            <p class="text-xl text-white mb-4">Welcome back, {{ current_user.username }}!</p>
+            <p class="text-2xl text-white mb-4">Welcome back, <span class="text-red-600">{{ current_user.username }}</span>!</p>
         {% endif %}
         
     
@@ -40,6 +40,9 @@
             </a>
         </div>
         {% endif %}
+        <div class="mt-8 text-white p-6 rounded-lg shadow-md">
+            <p class="text-xl bg-gradient-to-r from-yellow-500 to-red-500 text-transparent bg-clip-text">TO WIN SELECT THE GAME THAT YOU FEEL HAS THE MAXIMUM DOWNLOADS</p>
+        </div>
     </div>    
 </div>
 

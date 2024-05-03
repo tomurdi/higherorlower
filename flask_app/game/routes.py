@@ -31,7 +31,7 @@ def hard(username=None):
     easy = games_lst[0:(length // 3)]
     selected_games = random.sample(easy, 2)
     session['selected_games'] = easy
-    return render_template('game.html',user=user,game_list=selected_games,game_client=game_client,score=global_current_score)
+    return render_template('game.html',user=current_user,game_list=selected_games,game_client=game_client,score=global_current_score)
 
 
 @game.route('/medium')
@@ -42,7 +42,7 @@ def medium(username=None):
     medium = games_lst[(length // 3):(2*length)//3]
     selected_games = random.sample(medium, 2)
     session['selected_games'] = selected_games
-    return render_template('game.html',user=user,game_list=selected_games,game_client=game_client,score=global_current_score)
+    return render_template('game.html',user=current_user,game_list=selected_games,game_client=game_client,score=global_current_score)
 
 @game.route('/easy')
 @login_required
@@ -52,7 +52,7 @@ def easy(username=None):
     hard = games_lst[(2*length) // 3:]
     selected_games = random.sample(hard, 2)
     session['selected_games'] = selected_games
-    return render_template('game.html',user=user,game_list=selected_games,game_client=game_client,score=global_current_score)
+    return render_template('game.html',user=current_user,game_list=selected_games,game_client=game_client,score=global_current_score)
 
 @game.route('/process_selection', methods=['POST'])
 def process_selection():
