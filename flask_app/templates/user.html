@@ -5,7 +5,7 @@
     Back to Home
 </a>
 <div class="container mx-auto py-6 px-4 h-screen flex items-center justify-center">
-    <div class="bg-gray-700 p-6 rounded-lg shadow-lg max-w-2xl w-full">
+    <div class="bg-black p-6 rounded-lg shadow-lg max-w-2xl w-full">
         <div class="text-center mb-6 text-white">
             {% if profile_pic_base64 %}
             <img src="data:image/jpeg;base64,{{ profile_pic_base64 }}" alt="Profile Picture" class="mx-auto h-32 w-32 rounded-full mt-4"/>
@@ -36,7 +36,7 @@
                 {{ update_username_form.hidden_tag() }}
                 <div class="mb-4">
                     {{ update_username_form.username.label(class="block text-white text-sm font-bold mb-2") }}
-                    {{ update_username_form.username(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+                    {{ update_username_form.username(class="shadow appearance-none border rounded w-full py-2 px-3 bg-transparent text-red-600 leading-tight focus:outline-none focus:shadow-outline") }}
                     {% if update_username_form.username.errors %}
                         <div class="error" role="alert">
                             {% for error in update_username_form.username.errors %}
@@ -53,7 +53,7 @@
                 {{ update_profile_pic_form.hidden_tag() }}
                 <div class="mb-4">
                     {{ update_profile_pic_form.picture.label(class="block text-white text-sm font-bold mb-2") }}
-                    {{ update_profile_pic_form.picture(class="form-content shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline") }}
+                    {{ update_profile_pic_form.picture(class="form-content shadow appearance-none border bg-transparent rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline") }}
                     {% if update_profile_pic_form.picture.errors %}
                         <div class="error" role="alert">
                             {% for error in update_profile_pic_form.picture.errors %}

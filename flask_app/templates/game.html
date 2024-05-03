@@ -3,7 +3,7 @@
 <a href="{{ url_for('main.index') }}" class="text-white bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded">
     Back to Home
 </a>
-<header class="bg-gray-800 text-white py-4">
+<header class="text-white py-4">
     <div class="container mx-auto text-center">
         {% if user %}
             <h1 class="text-3xl font-bold">Welcome, {{ user.username }}!</h1>
@@ -18,7 +18,7 @@
 
 <form action="{{ url_for('game.process_selection') }}" method="post" class="flex flex-wrap justify-center">
     {% for game in game_list %}
-        <div class="bg-gray-800 p-5 border border-gray-500 rounded-xl transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl w-full md:w-1/2">
+        <div class="bg-black p-5 border border-gray-500 rounded-xl transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl w-full md:w-1/2">
             <h3 class="text-3xl font-semibold text-white text-center mb-3">{{ game[0] }}</h3>
             <button type="submit" name="selected_game" value="{{ game[0] }}">
                 <img src="{{ game[1] }}" alt="{{ game[0] }} background image" class="rounded-xl object-cover h-80 w-full">
