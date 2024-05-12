@@ -10,7 +10,7 @@
             {% if profile_pic_base64 %}
             <img src="data:image/jpeg;base64,{{ profile_pic_base64 }}" alt="Profile Picture" class="mx-auto h-32 w-32 rounded-full mt-4"/>
             {% endif %}
-            <h1 class="text-3xl font-bold">Welcome back, {{ user.username }}</h1>
+            <h1 class="text-3xl font-bold bg-gradient-to-r from-yellow-500 to-red-500 text-transparent bg-clip-text">Welcome back, {{ user.username }}</h1>
         </div>
         
         <!-- <div class="mb-6">
@@ -35,7 +35,7 @@
             <form method="POST" action="" class="mb-4">
                 {{ update_username_form.hidden_tag() }}
                 <div class="mb-4">
-                    {{ update_username_form.username.label(class="block text-white text-sm font-bold mb-2") }}
+                    {{ update_username_form.username.label(class="block text-white bg-clip-text text-sm font-bold mb-2") }}
                     {{ update_username_form.username(class="shadow appearance-none border rounded w-full py-2 px-3 bg-transparent text-red-600 leading-tight focus:outline-none focus:shadow-outline") }}
                     {% if update_username_form.username.errors %}
                         <div class="error" role="alert">
@@ -53,7 +53,7 @@
                 {{ update_profile_pic_form.hidden_tag() }}
                 <div class="mb-4">
                     {{ update_profile_pic_form.picture.label(class="block text-white text-sm font-bold mb-2") }}
-                    {{ update_profile_pic_form.picture(class="form-content shadow appearance-none border bg-transparent rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline") }}
+                    {{ update_profile_pic_form.picture(class="form-content shadow appearance-none border bg-transparent rounded w-full py-2 px-3 text-red-600 leading-tight focus:outline-none focus:shadow-outline") }}
                     {% if update_profile_pic_form.picture.errors %}
                         <div class="error" role="alert">
                             {% for error in update_profile_pic_form.picture.errors %}
